@@ -33,6 +33,26 @@ namespace l10n {
 
     let LOCALE: Locale = null;
 
+    //% blockId="l10n_newLocale"
+    //% block="create language with code $code name $name || native name $sname"
+    //% blockSetVariable=myLang
+    //% code.defl="en-US"
+    //% name.defl="English (US)"
+    //% sname.defl="English (US)"
+    export function newLocale(code: string, name: string, sname?: string): Locale {
+        return new Locale(code, name, sname || name);
+    }
+
+    //% blockId="l10n_setKey"
+    //% block="set $key in $locale = $value"
+    //% locale.defl=myLang
+    //% locale.shadow=variables_get
+    //% key.defl="key"
+    //% value.defl="value"
+    export function setKey(locale: Locale, key: string, value: string) {
+        locale.register(key, value);
+    }
+
     //% blockId=l10n_setLocale
     //% block="set language to $locale"
     //% locale.defl=myLang
@@ -61,6 +81,7 @@ namespace l10n {
 
     //% blockId=l10n_t
     //% block="localized $name || with args $args"
+    //% name.defl="key"
     export function t(name: string, args?: string[]) {
         if (!LOCALE) throw "Language locale is undefined";
         return tl(LOCALE, name, args);
@@ -70,6 +91,7 @@ namespace l10n {
     //% block="localized $name in language $locale || with args $args"
     //% locale.defl=myLang
     //% locale.shadow=variables_get
+    //% name.defl="key"
     export function tl(locale: Locale, name: string, args?: string[]) {
         let result = locale.get(name);
         if (!result) throw `Identifier '${name}' not found in locale '${locale.code}'`;
