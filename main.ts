@@ -47,6 +47,13 @@ namespace l10n {
     //% name.defl="English (US)"
     //% sname.defl="English (US)"
     //% weight=100
+    /**
+     * Creates new locale object
+     * @param code Language code (ID)
+     * @param name Language name in english
+     * @param sname Native language name
+     * @returns Locale object
+     */
     export function newLocale(code: string, name: string, sname?: string): Locale {
         return new Locale(code, name, sname || name);
     }
@@ -58,6 +65,12 @@ namespace l10n {
     //% key.defl="key"
     //% value.defl="value"
     //% weight=90
+    /**
+     * Sets key in language to a translated value
+     * @param locale Language to update
+     * @param key Key name
+     * @param value Translation value (formatted string)
+     */
     export function setKey(locale: Locale, key: string, value: string) {
         locale.register(key, value);
     }
@@ -67,6 +80,10 @@ namespace l10n {
     //% locale.defl=myLang
     //% locale.shadow=variables_get
     //% weight=80
+    /**
+     * Sets current language
+     * @param locale Language to set
+     */
     export function setLocale(locale: Locale) {
         LOCALE = locale;
     }
@@ -74,6 +91,9 @@ namespace l10n {
     //% blockId=l10n_removeLocale
     //% block="unset current language"
     //% weight=50
+    /**
+     * Remove currently set language
+     */
     export function removeLocale() {
         LOCALE = null;
     }
@@ -81,6 +101,10 @@ namespace l10n {
     //% blockId=l10n_getLocale
     //% block="get current language"
     //% weight=40
+    /**
+     * Gets currently set language
+     * @returns Locale object
+     */
     export function getLocale() {
         return LOCALE;
     }
@@ -90,6 +114,12 @@ namespace l10n {
     //% locale.defl=myLang
     //% locale.shadow=variables_get
     //% weight=30
+    /**
+     * Get attribute of locale object
+     * @param locale Locale object
+     * @param attribute Enum member representing attribute (Code/Name/Native name)
+     * @returns String value
+     */
     export function getLocaleAttribute(locale: Locale, attribute: LocaleAttribute) {
         if (attribute == LocaleAttribute.Code) return locale.code;
         if (attribute == LocaleAttribute.Name) return locale.name;
@@ -100,6 +130,10 @@ namespace l10n {
     //% blockId=l10n_isLocaleSet
     //% block="is language set"
     //% weight=20
+    /**
+     * Returns true if currently set locale object is a non-null value
+     * @returns Boolean
+     */
     export function isLocaleSet(): boolean {
         return !!LOCALE;
     }
@@ -108,6 +142,12 @@ namespace l10n {
     //% block="localized $name || with args $args"
     //% name.defl="key"
     //% weight=70
+    /**
+     * Translate value by key in currently set language
+     * @param name Key name
+     * @param args (Optional) arguments to pass into formatted string
+     * @returns Translated string
+     */
     export function t(name: string, args?: string[]) {
         if (!LOCALE) throw "Language locale is undefined";
         return tl(LOCALE, name, args);
@@ -119,6 +159,13 @@ namespace l10n {
     //% locale.shadow=variables_get
     //% name.defl="key"
     //% weight=60
+    /**
+     * Translate value by key in given language
+     * @param locale Language to use
+     * @param name Key name
+     * @param args (Optional) arguments to pass into formatted string
+     * @returns Translated string
+     */
     export function tl(locale: Locale, name: string, args?: string[]) {
         let result = locale.get(name);
         if (!result) throw `Identifier '${name}' not found in locale '${locale.code}'`;
