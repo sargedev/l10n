@@ -35,6 +35,8 @@ namespace l10n {
 
     //% blockId=l10n_setLocale
     //% block="set language to $locale"
+    //% locale.defl=myLang
+    //% locale.shadow=variables_get
     export function setLocale(locale: Locale) {
         LOCALE = locale;
     }
@@ -66,6 +68,8 @@ namespace l10n {
 
     //% blockId=l10n_tl
     //% block="localized $name in language $locale || with args $args"
+    //% locale.defl=myLang
+    //% locale.shadow=variables_get
     export function tl(locale: Locale, name: string, args?: string[]) {
         let result = locale.get(name);
         if (!result) throw `Identifier '${name}' not found in locale '${locale.code}'`;
