@@ -46,6 +46,7 @@ namespace l10n {
     //% code.defl="en-US"
     //% name.defl="English (US)"
     //% sname.defl="English (US)"
+    //% weight=100
     export function newLocale(code: string, name: string, sname?: string): Locale {
         return new Locale(code, name, sname || name);
     }
@@ -56,6 +57,7 @@ namespace l10n {
     //% locale.shadow=variables_get
     //% key.defl="key"
     //% value.defl="value"
+    //% weight=90
     export function setKey(locale: Locale, key: string, value: string) {
         locale.register(key, value);
     }
@@ -64,18 +66,21 @@ namespace l10n {
     //% block="set language to $locale"
     //% locale.defl=myLang
     //% locale.shadow=variables_get
+    //% weight=80
     export function setLocale(locale: Locale) {
         LOCALE = locale;
     }
 
     //% blockId=l10n_removeLocale
     //% block="unset current language"
+    //% weight=50
     export function removeLocale() {
         LOCALE = null;
     }
 
     //% blockId=l10n_getLocale
     //% block="get current language"
+    //% weight=40
     export function getLocale() {
         return LOCALE;
     }
@@ -84,6 +89,7 @@ namespace l10n {
     //% block="get $locale $attribute"
     //% locale.defl=myLang
     //% locale.shadow=variables_get
+    //% weight=30
     export function getLocaleAttribute(locale: Locale, attribute: LocaleAttribute) {
         if (attribute == LocaleAttribute.Code) return locale.code;
         if (attribute == LocaleAttribute.Name) return locale.name;
@@ -93,6 +99,7 @@ namespace l10n {
 
     //% blockId=l10n_isLocaleSet
     //% block="is language set"
+    //% weight=20
     export function isLocaleSet(): boolean {
         return !!LOCALE;
     }
@@ -100,6 +107,7 @@ namespace l10n {
     //% blockId=l10n_t
     //% block="localized $name || with args $args"
     //% name.defl="key"
+    //% weight=70
     export function t(name: string, args?: string[]) {
         if (!LOCALE) throw "Language locale is undefined";
         return tl(LOCALE, name, args);
@@ -110,6 +118,7 @@ namespace l10n {
     //% locale.defl=myLang
     //% locale.shadow=variables_get
     //% name.defl="key"
+    //% weight=60
     export function tl(locale: Locale, name: string, args?: string[]) {
         let result = locale.get(name);
         if (!result) throw `Identifier '${name}' not found in locale '${locale.code}'`;
