@@ -5,6 +5,13 @@
 //% color="#d10247" weight=0 icon="\uf1ab" block="Localization"
 namespace l10n {
 
+    export enum LocaleAttribute {
+        Code,
+        Name,
+        //% block="Native name"
+        Sname
+    }
+
     interface SymbolTable {
         [key: string]: string;
     }
@@ -71,6 +78,17 @@ namespace l10n {
     //% block="get current language"
     export function getLocale() {
         return LOCALE;
+    }
+
+    //% blockId="l10n_getLocaleAttribute"
+    //% block="get $locale $attribute"
+    //% locale.defl=myLang
+    //% locale.shadow=variables_get
+    export function getLocaleAttribute(locale: Locale, attribute: LocaleAttribute) {
+        if (attribute == LocaleAttribute.Code) return locale.code;
+        if (attribute == LocaleAttribute.Name) return locale.name;
+        if (attribute == LocaleAttribute.Sname) return locale.sname;
+        throw "Invalid attribute access";
     }
 
     //% blockId=l10n_isLocaleSet
